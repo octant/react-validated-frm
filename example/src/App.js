@@ -1,13 +1,37 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { Container, Col, Row } from "reactstrap";
 
-import ExampleComponent from 'react-validated-frm'
+import FormWrapperExample from "./FormWrapperExample";
+import RenderPropsExample from "./RenderPropsExample";
 
 export default class App extends Component {
-  render () {
+  handleSubmit = form => {
+    console.log(form);
+  };
+
+  render() {
     return (
-      <div>
-        <ExampleComponent text='Modern React component module' />
-      </div>
-    )
+      <Container>
+        <Row>
+          <Col>
+            <h1>React Validated Form Examples</h1>
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
+            <h2>FormWrapper Example</h2>
+            <FormWrapperExample methods={{ submit: this.handleSubmit }} />
+          </Col>
+        </Row>
+        <hr />
+        <Row>
+          <Col>
+            <h2>Functional Props Example</h2>
+            <RenderPropsExample methods={{ submit: this.handleSubmit }} />
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }
