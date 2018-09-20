@@ -5,8 +5,22 @@ import FormWrapperExample from "./FormWrapperExample";
 import RenderPropsExample from "./RenderPropsExample";
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
   handleSubmit = form => {
     console.log(form);
+  };
+
+  handleChange = (name, value) => {
+    this.setState({ [name]: value });
+  };
+
+  handleInit = form => {
+    this.setState({ ...form });
   };
 
   render() {
@@ -21,7 +35,13 @@ export default class App extends Component {
         <Row>
           <Col>
             <h2>FormWrapper Example</h2>
-            <FormWrapperExample methods={{ submit: this.handleSubmit }} />
+            <FormWrapperExample
+              methods={{
+                submit: this.handleSubmit,
+                change: this.handleChange
+              }}
+              values={this.state}
+            />
           </Col>
         </Row>
         <hr />

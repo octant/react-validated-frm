@@ -3,6 +3,7 @@ import React from "react";
 class ReactValidatedForm extends React.Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
 
     const validProps = {};
     const passedValues = this.props.values || {};
@@ -16,8 +17,22 @@ class ReactValidatedForm extends React.Component {
     this.state = { ...props.schema.defaultValues(), ...validProps };
   }
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.onChange !== undefined && props.values) {
+      return { ...state, ...props.values };
+    } else {
+      return null;
+    }
+  }
+
+  init = () => this.props.onInit(this.state);
+
   change = (name, value) => {
-    this.setState(() => ({ [name]: value }));
+    if (this.props.onChange !== undefined) {
+      this.props.onChange(name, value);
+    } else {
+      this.setState(() => ({ [name]: value }));
+    }
   };
 
   reset = () => {
@@ -51,7 +66,7 @@ class ReactValidatedForm extends React.Component {
     return this.props.children({
       customTemplates: this.props.customTemplates,
       fields: this.fields(),
-      values: { ...this.state },
+      values: { ...this.state, ...this.props.values },
       errors: this.props.schema.validate(this.state),
       isValid: this.props.schema.isValid(this.state),
       validatedMethods: {
