@@ -17,6 +17,12 @@ class ReactValidatedForm extends React.Component {
     this.state = { ...props.schema.defaultValues(), ...validProps };
   }
 
+  componentDidMount() {
+    if (this.props.onInit !== undefined) {
+      this.props.onInit(this.state);
+    }
+  }
+
   static getDerivedStateFromProps(props, state) {
     if (props.onChange !== undefined && Object.keys(props.values).length > 0) {
       return { ...state, ...props.values };
@@ -25,11 +31,11 @@ class ReactValidatedForm extends React.Component {
     }
   }
 
-  change = (name, value) => {
+  change = (key, value) => {
     if (this.props.onChange !== undefined) {
-      this.props.onChange(name, value);
+      this.props.onChange(key, value);
     } else {
-      this.setState(() => ({ [name]: value }));
+      this.setState(() => ({ [key]: value }));
     }
   };
 
@@ -63,6 +69,7 @@ class ReactValidatedForm extends React.Component {
   render() {
     return this.props.children({
       customTemplates: this.props.customTemplates,
+      buttons: this.props.buttons,
       fields: this.fields(),
       values: { ...this.state },
       errors: this.props.schema.validate(this.state),
