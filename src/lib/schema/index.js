@@ -229,7 +229,10 @@ class Schema {
   defaultValues() {
     const defaultValues = {};
     Object.keys(this.schemaDefinition).forEach(key => {
-      defaultValues[key] = this.schemaDefinition[key].defaultValue || "";
+      defaultValues[key] =
+        this.schemaDefinition[key].defaultValue !== undefined
+          ? this.schemaDefinition[key].defaultValue
+          : "";
     });
     return defaultValues;
   }
