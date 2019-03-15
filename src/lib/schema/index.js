@@ -28,13 +28,6 @@ class Validator {
       }
     }
 
-    if (custom !== undefined) {
-      const { passed, message } = this.invokeCustomValidation(fields);
-      if (!passed) {
-        messages.push(message);
-      }
-    }
-
     if (min !== undefined) {
       const { passed, message } = this.greaterThan(fieldValue);
       if (!passed) {
@@ -51,6 +44,13 @@ class Validator {
 
     if (pattern !== undefined) {
       const { passed, message } = this.properlyFormatted(fieldValue);
+      if (!passed) {
+        messages.push(message);
+      }
+    }
+
+    if (custom !== undefined) {
+      const { passed, message } = this.invokeCustomValidation(fields);
       if (!passed) {
         messages.push(message);
       }
