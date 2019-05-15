@@ -59,6 +59,7 @@ class Field extends React.Component {
       label: this.props.definition.label,
       name: this.props.name,
       onChange: this.handleChange,
+      placeholder: this.props.definition.placeholder,
       options: this.props.definition.options,
       required: this.props.definition.required,
       type: `select`,
@@ -73,6 +74,7 @@ class Field extends React.Component {
       label: this.props.definition.label,
       name: this.props.name,
       onChange: this.handleChange,
+      placeholder: this.props.definition.placeholder,
       required: this.props.definition.required,
       type: this.props.definition.type,
       value: this.props.value
