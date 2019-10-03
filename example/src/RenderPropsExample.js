@@ -4,13 +4,7 @@ import ValidatedForm, { Schema, Field } from "react-validated-frm";
 import test from "./forms/example";
 
 const Example = ({ methods }) => (
-  <ValidatedForm
-    onSubmit={methods.submit}
-    schema={new Schema(test)}
-    values={{
-      hasDriversLicense: "false"
-    }}
-  >
+  <ValidatedForm onSubmit={methods.submit} schema={new Schema(test)}>
     {({ fields, errors, isValid, validatedMethods }) => {
       return (
         <div>
