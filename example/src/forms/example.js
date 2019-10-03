@@ -47,7 +47,8 @@ const schema = {
   numberOfSiblings: {
     type: "number",
     label: "# of Siblings",
-    min: 0
+    min: 0,
+    nullValue: 0
   },
 
   hasDriversLicense: {

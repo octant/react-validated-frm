@@ -44,7 +44,18 @@ class ReactValidatedForm extends React.Component {
   };
 
   submit = () => {
-    this.props.onSubmit({ ...this.state });
+    const { schemaDefinition } = this.props.schema;
+
+    const cleanState = Object.entries(schemaDefinition).reduce(
+      (prev, [k, v]) => {
+        return v.nullValue !== undefined && this.state[k] === ""
+          ? { ...prev, [k]: v.nullValue }
+          : { ...prev, [k]: this.state[k] };
+      },
+      {}
+    );
+
+    this.props.onSubmit({ ...cleanState });
   };
 
   fields() {
